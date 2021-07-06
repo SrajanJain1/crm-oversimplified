@@ -57,8 +57,8 @@ def logoutUser(request):
 	logout(request)
 	return redirect('login')
 
-#@login_required(login_url='login')
-#@admin_only
+@login_required(login_url='login')
+@admin_only
 def home(request):
 	orders = Order.objects.all()
 	customers = Customer.objects.all()
@@ -75,8 +75,8 @@ def home(request):
 
 	return render(request, 'accounts/dashboard.html', context)
 
-#@login_required(login_url='login')
-#@allowed_users(allowed_roles=['customer'])
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
 def userPage(request):
 	orders = request.user.customer.order_set.all()
 
@@ -90,8 +90,8 @@ def userPage(request):
 	'delivered':delivered,'pending':pending}
 	return render(request, 'accounts/user.html', context)
 
-#@login_required(login_url='login')
-#@allowed_users(allowed_roles=['customer'])
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
 def accountSettings(request):
 	customer = request.user.customer
 	form = CustomerForm(instance=customer)
@@ -108,15 +108,15 @@ def accountSettings(request):
 
 
 
-#@login_required(login_url='login')
-#@allowed_users(allowed_roles=['admin'])
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def products(request):
 	products = Product.objects.all()
 
 	return render(request, 'accounts/products.html', {'products':products})
 
-#@login_required(login_url='login')
-#@allowed_users(allowed_roles=['admin'])
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def customer(request, pk_test):
 	customer = Customer.objects.get(id=pk_test)
 
@@ -130,8 +130,8 @@ def customer(request, pk_test):
 	'myFilter':myFilter}
 	return render(request, 'accounts/customer.html',context)
 
-#@login_required(login_url='login')
-#@allowed_users(allowed_roles=['admin'])
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def createOrder(request, pk):
 	OrderFormSet = inlineformset_factory(Customer, Order, fields=('product', 'status'), extra=5 )
 	customer = Customer.objects.get(id=pk)
@@ -148,8 +148,8 @@ def createOrder(request, pk):
 	context = {'form':formset}
 	return render(request, 'accounts/order_form.html', context)
 
-#@login_required(login_url='login')
-#@allowed_users(allowed_roles=['admin'])
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def updateOrder(request, pk):
 	order = Order.objects.get(id=pk)
 	form = OrderForm(instance=order)
@@ -164,8 +164,8 @@ def updateOrder(request, pk):
 	context = {'form':form}
 	return render(request, 'accounts/order_form.html', context)
 
-#@login_required(login_url='login')
-#@allowed_users(allowed_roles=['admin'])
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def deleteOrder(request, pk):
 	order = Order.objects.get(id=pk)
 	if request.method == "POST":
