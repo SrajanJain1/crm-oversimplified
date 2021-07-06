@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-!089#k#hcw*2@yxue&$07hxp*40+9yq!wa8)(9j(%jmpkrqt^x'
+SECRET_KEY = os.environ['secret_key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -149,6 +149,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'srajanprojects@gmail.com'
-EMAIL_HOST_PASSWORD = 'project!23'
+EMAIL_HOST_PASSWORD = os.environ['password_configvar']
 
 django_heroku.settings(locals()) 
