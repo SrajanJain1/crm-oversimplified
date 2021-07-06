@@ -16,7 +16,7 @@ from .forms import OrderForm, CreateUserForm, CustomerForm
 from .filters import OrderFilter
 from .decorators import unauthenticated_user, allowed_users, admin_only
 
-#@unauthenticated_user
+@unauthenticated_user
 def registerPage(request):
 
 	form = CreateUserForm()
@@ -35,7 +35,7 @@ def registerPage(request):
 	context = {'form':form}
 	return render(request, 'accounts/register.html', context)
 
-#@unauthenticated_user
+@unauthenticated_user
 def loginPage(request):
 
 	if request.method == 'POST':
